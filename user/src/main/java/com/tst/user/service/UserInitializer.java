@@ -1,6 +1,6 @@
 package com.tst.user.service;
 
-import com.tst.srv.commons.exceptions.DuplicateException;
+import com.tst.commons.exceptions.DuplicateException;
 import com.tst.user.repository.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;

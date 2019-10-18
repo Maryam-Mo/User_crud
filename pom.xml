@@ -6,7 +6,7 @@
 	<modules>
 		<module>user</module>
         <module>srv-main</module>
-		<module>srv-commons</module>
+		<module>srvcommons</module>
         <module>item</module>
     </modules>
 	<parent>

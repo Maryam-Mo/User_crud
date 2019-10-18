@@ -1,7 +1,7 @@
 package com.tst.user.resource;
 
-import com.tst.srv.commons.exceptions.DuplicateException;
-import com.tst.srv.commons.exceptions.HmsException;
+import com.tst.commons.exceptions.DuplicateException;
+import com.tst.commons.models.SearchRequest;
 import com.tst.user.repository.User;
 import com.tst.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +27,9 @@ public class UserResource {
         return userService.update(user);
     }
 
-    @GetMapping("/findAll")
-    public List<User> findAll() {
-        return userService.findAll();
+    @PostMapping("/findAll")
+    public List<User> findAll(@RequestBody SearchRequest searchRequest) {
+        return userService.findAll(searchRequest);
     }
 
     @DeleteMapping("/delete")
@@ -38,7 +38,7 @@ public class UserResource {
     }
 
     @GetMapping("/validate")
-    public User validate(@RequestParam String username, @RequestParam String password) throws HmsException {
+    public User validate(@RequestParam String username, @RequestParam String password) throws DuplicateException {
         return userService.validate(username, password);
     }
 }

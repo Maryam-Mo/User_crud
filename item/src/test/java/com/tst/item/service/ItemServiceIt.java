@@ -24,7 +24,7 @@ public class ItemServiceIt {
     @Autowired private ItemRepository itemRepository;
 
     @Test
-    public void create() throws DuplicateException {
+    public void create() throws DuplicateException, com.tst.commons.exceptions.DuplicateException {
         Item item = getItem();
         Item savedItem = itemService.create(item);
         assertNotNull(savedItem);
@@ -36,7 +36,7 @@ public class ItemServiceIt {
     }
 
     @Test
-    public void update() throws DuplicateException {
+    public void update() throws DuplicateException, com.tst.commons.exceptions.DuplicateException {
         Item savedItem = itemService.create(getItem());
         savedItem.setPrice(2000);
         Item updatedItem = itemService.update(savedItem);
@@ -50,7 +50,7 @@ public class ItemServiceIt {
     }
 
     @Test
-    public void find() throws DuplicateException {
+    public void find() throws DuplicateException, com.tst.commons.exceptions.DuplicateException {
         Item savedItem = itemService.create(getItem());
         List<Item> items = itemService.findAll();
         Item item = items.get(0);

@@ -1,5 +1,6 @@
 package com.tst.user.service;
 
+import com.tst.commons.models.SearchRequest;
 import com.tst.srv.commons.exceptions.DuplicateException;
 import com.tst.user.repository.User;
 import com.tst.user.repository.UserRepository;
@@ -24,7 +25,7 @@ public class UserServiceIt {
     @Autowired private UserRepository userRepository;
 
     @Test
-    public void create() throws DuplicateException {
+    public void create() throws DuplicateException, com.tst.commons.exceptions.DuplicateException {
         User user = getUser();
         User savedUser = userService.create(user);
         assertNotNull(savedUser);
@@ -37,7 +38,7 @@ public class UserServiceIt {
     }
 
     @Test
-    public void update() throws DuplicateException {
+    public void update() throws DuplicateException, com.tst.commons.exceptions.DuplicateException {
         User savedUser = userService.create(getUser());
         savedUser.setFirstName("Maryam");
         User updatedUser = userService.update(savedUser);
@@ -52,9 +53,10 @@ public class UserServiceIt {
     }
 
     @Test
-    public void find() throws DuplicateException {
+    public void find() throws DuplicateException, com.tst.commons.exceptions.DuplicateException {
         User savedUser = userService.create(getUser());
-        List<User> users = userService.findAll();
+        SearchRequest searchRequest = new SearchRequest(1, 10, "username",false);
+        List<User> users = userService.findAll(searchRequest);
         User user = users.get(0);
         assertNotNull(users);
         assertEquals(1, users.size());
@@ -67,13 +69,14 @@ public class UserServiceIt {
     }
 
     @Test
-    public void delete() throws DuplicateException {
+    public void delete() throws DuplicateException, com.tst.commons.exceptions.DuplicateException {
         User savedUser = userService.create(getUser());
-        List<User> users = userService.findAll();
+        SearchRequest searchRequest = new SearchRequest(1, 10, "username",false);
+        List<User> users = userService.findAll(searchRequest);
         assertNotNull(users);
         assertEquals(1, users.size());
         userService.delete(savedUser.getId());
-        List<User> usersAfterDeletetion = userService.findAll();
+        List<User> usersAfterDeletetion = userService.findAll(searchRequest);
         assertEquals(0, usersAfterDeletetion.size());
     }
 

@@ -1,9 +1,9 @@
 package com.tst.user.service;
 
+import com.tst.commons.exceptions.DuplicateException;
+import com.tst.commons.models.SearchRequest;
 import com.tst.user.repository.User;
 import com.tst.user.repository.UserRepository;
-import com.tst.srv.commons.exceptions.DuplicateException;
-import com.tst.srv.commons.exceptions.HmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,10 @@ import java.util.Optional;
 /**
  * Created by Maryam Moein <maryam.moein@safesat.com.ph> on 8/29/19.
  */
+
 @Service
 class UserServiceImpl implements UserService {
+
     @Autowired private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -56,8 +58,8 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<User> findAll(SearchRequest searchRequest) {
+        return userRepository.findUsers(searchRequest);
     }
 
     @Override
@@ -70,14 +72,14 @@ class UserServiceImpl implements UserService {
 
     @Override
     public long count() {
-        return userRepository.count();
+        return userRepository.countUsers();
     }
 
     @Override
-    public User validate(String username, String password) throws HmsException {
+    public User validate(String username, String password) throws DuplicateException {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(!userOptional.isPresent() || !getPasswordEncoder().matches(password, userOptional.get().getPassword())) {
-            throw new HmsException("Username/Password is invalid!");
+            throw new DuplicateException("Username/Password is invalid!");
         }
         return userOptional.get();
     }

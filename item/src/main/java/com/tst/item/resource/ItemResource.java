@@ -1,8 +1,8 @@
 package com.tst.item.resource;
 
+import com.tst.commons.exceptions.DuplicateException;
 import com.tst.item.repository.Item;
 import com.tst.item.service.ItemService;
-import com.tst.srv.commons.exceptions.DuplicateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

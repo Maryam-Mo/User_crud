@@ -24,8 +24,8 @@
         </dependency>
         <dependency>
             <groupId>com.tst</groupId>
-            <artifactId>srv-commons</artifactId>
-            <version>0.0.1</version>
+            <artifactId>srvcommons</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
